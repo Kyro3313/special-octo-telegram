@@ -2,6 +2,16 @@ const themeToggler = document.querySelector(".theme-toggler");
 const sideMenu = document.querySelector("aside");
 const menuBtn = document.querySelector('#menu-btn');
 const closeBtn = document.querySelector('#close-btn');
+const sideBtn = sideMenu.querySelectorAll("a");
+
+sideBtn.forEach((item) =>{
+    item.addEventListener('click', () =>{
+        active = sideMenu.querySelector(".active");
+        if(active){ active.classList.remove("active")}
+        item.classList.add("active");
+    })
+})
+
 
 menuBtn.addEventListener('click', () =>{
     sideMenu.style.display = "block";
