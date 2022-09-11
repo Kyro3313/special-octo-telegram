@@ -25,11 +25,12 @@
 }
 
 .dark-theme-variables{
-    --color-background: #181a1e;
-    --color-white: #202528;
-    --color-dark: #edeffd;
-    --color-dark-variant: #a3bdcc;
-    --color-light: rgba(0,0,0,0.4);
+    --color-background: #0f0f0f;
+    --color-black: #ffffff;
+    --color-white: #181818;
+    --color-dark: #ff0000;
+    --color-dark-variant: #eeff00;
+    --color-light: rgba(71, 0, 0, 0.4);
     --box-shadow: 0 2rem 3rem var(--color-light);
 }
 
@@ -47,8 +48,8 @@ body{
 .container{
     display: grid;
     width: 96%;
-    gap: 1.8rem;
-    grid-template-columns: 14rem auto 23rem;
+    grid-template-columns: 14rem 100vw;
+    grid-template-rows: 14rem;
 }
 
 img{
@@ -177,7 +178,38 @@ aside .sidebar a:hover span{
     margin-left: 1rem;
 }
 
+header{
+    display: grid;
+    padding: 0.5rem;
+    grid-template-columns: 4fr 2fr;
+
+}
+
+header > .searchbar{
+    width: 500px;
+    height: 50px;
+    background-color: red;
+}
+
+header > .top{
+    width: 20rem
+}
+
+header > .buttons{
+    width: 250px;
+    height: 50px;
+    background-color: blue;
+    grid-column: 2;
+}
+
+
+
+
 main{
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    grid-template-rows: 0;
+    grid-column: 2;
     margin-top: 1.4rem;
 }
 
