@@ -280,6 +280,16 @@ main .insights > div{
     transition: all 300ms ease;
 }
 
+main .insights > .ticBox{
+    background-color: var(--color-black);
+    
+}
+main .insights > .ticBox > a{
+    color: var(--color-white);
+    text-decoration: none;
+    cursor: pointer;
+}
+
 main .insights > div:hover{
     box-shadow: var(--box-shadow);
 }
