@@ -558,7 +558,7 @@ main .recent-orders a{
 }
 
 
-@media screen and (max-width: 1200px){
+/* @media screen and (max-width: 1200px){
     body{
         overflow: visible;
     }
@@ -606,13 +606,20 @@ main .recent-orders a{
     main table body tr td:last-child{
         display: none;
     }
-}
+} */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-device-width: 812px)  and (min-device-width: 375px){
+    body{
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+    }
+    
     .container{
         width: 100%;
         grid-template-columns: 1fr;
     }
+    /* 
     aside{
         position: fixed;
         left: -100%;
@@ -713,7 +720,7 @@ main .recent-orders a{
     }
     .right .top .button span{
         font-size: 2rem;
-    }
+    } */
 
 }
 

@@ -5,10 +5,14 @@
     box-sizing: border-box;
     padding: 0;
     font-family: Roboto Mono;
+    overflow: hidden;
+
 }
 
+ /* Backround made by "Josie Barker" - https://codepen.io/weenabeana/pen/yRMwGY */
+
 body {
-   /* Backround made by "Josie Barker" - https://codepen.io/weenabeana/pen/yRMwGY */
+  
     width: 100vw;
     height: 100vh;
     background: -moz-linear-gradient(45deg, #02e1ba 0%, #26c9f2 29%, #d911f2 66%, #ffa079 100%);
@@ -18,7 +22,7 @@ body {
     -webkit-animation: Gradient 15s ease infinite;
   -moz-animation: Gradient 15s ease infinite;
   animation: Gradient 15s ease infinite;
-  /*min-height: calc(100vh - 2rem);*/
+  min-height: calc(100vh - 2rem);
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -120,14 +124,40 @@ body::after {
   .st15{opacity:0.3;fill:#FFFFFF;enable-background:new    ;}
 
 
+
 main{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
+
+.button-container{
+  display:flex;
+  margin: 2em;
+}
+
+.button-container > *{
+ 
+  cursor: pointer;
+  font-size: 2rem;
+  color: rgb(255, 255, 255);
+  background-color: transparent;
+  border: 1px white solid;
+  width: 8rem;
+  height: 4rem;
+  transition: all 300ms ease;
+}
+
+.button-container > *.active{
+  color: black;
+  background-color: white;
+}
+
+
+
 .container{
     align-self: center;
-    width: fit-content;
     display: grid;  
     grid-template-columns: repeat(3,1fr);
     grid-template-rows: repeat(3,1fr); 
@@ -138,7 +168,7 @@ main{
 .box{
     color: rgb(51, 51, 51);
     text-align: center;
-    font-size: 76px;
+    font-size: 3.5rem;
     width: 1px;
     height: 1px;
     background-color: rgb(255, 255, 255);
@@ -185,3 +215,15 @@ main{
 }
 
 
+@media screen and (max-device-width: 812px)  and (min-device-width: 320px){
+  *,::before,::after{
+    overflow-y: hidden;
+    overflow-x: hidden;
+    
+    float: left;
+  }
+  main{
+    width: 100vw;  
+    height: 100vh;
+  }
+}
