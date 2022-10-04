@@ -16,7 +16,7 @@ setTimeout(function(){
 }, 2000);
 
 
-const TicTacBoard = (() =>{
+const TicTacApp = (() =>{
     let pbtn = document.querySelector('.pbtn')
     let aibtn = document.querySelector('.abtn')
     let win_msg = document.querySelector(".winning-message")
@@ -25,6 +25,9 @@ const TicTacBoard = (() =>{
     let win_txt = document.querySelector('[data-winning-message-text]')
     let player = true    
     let ai_player = false
+    let obtn = document.querySelector('.button-order')
+    let fbtn = document.querySelector('.first')
+    let sbtn = document.querySelector('.second')
     
     pbtn.classList.add('active')
 
@@ -32,6 +35,9 @@ const TicTacBoard = (() =>{
         ai_player = false
         aibtn.classList.remove('active')
         pbtn.classList.add('active')
+        obtn.style.display = 'none'
+        fbtn.classList.remove('active')
+        sbtn.classList.remove('active')
         reset()
     })
 
@@ -39,12 +45,33 @@ const TicTacBoard = (() =>{
         ai_player = true
         pbtn.classList.remove('active')
         aibtn.classList.add('active')
+        obtn.style.display = 'flex'
+        sbtn.classList.add('active')
         reset()
     })
+
+    fbtn.addEventListener('click', () =>{
+      fbtn.classList.add('active')
+      sbtn.classList.remove('active')
+      reset()
+      ai_move()
+
+    })
+
+    
+
+    sbtn.addEventListener('click', () =>{
+      sbtn.classList.add('active')
+      fbtn.classList.remove('active')
+      reset()
+    })
+
 
     cells.forEach(cell => {
         cell.addEventListener('click', make_move, {once: true})
     });
+
+    
 
     function make_move(e){
         const cell = e.target
@@ -54,9 +81,7 @@ const TicTacBoard = (() =>{
                 win_message(check_winner())
                 return true
             }
-            board = Array.from(cells).map(x => x.textContent)
-            console.log(minMax(board, "O", 9))
-            cells[minMax(board, "O", 9).move].textContent = "O"
+            ai_move()
 
             if(check_winner()){
                 win_message(check_winner())
@@ -105,15 +130,21 @@ const TicTacBoard = (() =>{
 
 
     function minMax(node, player, depth){
+        let opponent = (player === "O" ? "X" : "O")
+        let available = getAvailable(node)
+        if(available.length === 9){
+          let start = [0,4,2,6,8]
+          return{move: start[Math.floor(Math.random()*start.length)]}
+        }
         let result = check_winner2(node)
         if(result === "O"){
-          return {score: 1}
+          return {score: +1 * (1 + available.length)}
         }if(result === "X"){
-          return {score: -1}
+          return {score: -1 * (1 + available.length)} 
         }else if(result === 'Tie'){
           return {score: 0}
         }
-        let available = getAvailable(node)
+        
           let moves = []
           let scores = []
           for(let i = 0; i < available.length; i++){
@@ -121,9 +152,9 @@ const TicTacBoard = (() =>{
                   node[available[i]] = player
                   let score;
                   if(player === "O"){
-                    score = minMax(node, "X", depth + 1).score
+                    score = minMax(node, "X", depth++).score
                   } else{
-                    score = minMax(node, "O", depth + 1).score
+                    score = minMax(node, "O", depth++).score
                   }
                   scores.push(score)
                   node[available[i]] = ''
@@ -167,7 +198,12 @@ function check_winner2(board){
       return res
   }
   
-
+    function ai_move(){
+      board = Array.from(cells).map(x => x.textContent)
+      let move = minMax(board, "O", 0).move
+      cells[move].textContent = "O"
+      cells[move].removeEventListener('click', make_move, {once: true})
+    }
     
     function reset(){
         cells.forEach(x => x.textContent = '')
@@ -179,6 +215,9 @@ function check_winner2(board){
     btn.addEventListener('click', ()=>{
         win_msg.style.display = 'none'
         reset()
+        if(ai_player && fbtn.classList.contains('active')){
+          ai_move()
+        }
     })
 
     return {cells, make_move, check_winner}
